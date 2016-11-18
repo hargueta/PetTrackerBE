@@ -4,6 +4,12 @@
   "description": "Defines the API for PetTracker",
   "main": "server.js",
   "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": "6.3.1"
+  },
+  "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,5 +26,10 @@
   "bugs": {
     "url": "https://github.com/hargueta/PetTrackerBE/issues"
   },
-  "homepage": "https://github.com/hargueta/PetTrackerBE#readme"
+  "homepage": "https://github.com/hargueta/PetTrackerBE#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "mongoose": "~4.1.12",
+    "body-parser": "~1.15.2"
+  }
 }
