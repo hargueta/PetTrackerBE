@@ -3,12 +3,18 @@ var bodyParser = require('body-parser');
 
 var mongoose = require('mongoose');
 
-var urlString = process.env.MONGODB_URI ||
+var urlString = process.env.PROD_MONGODB ||
                 process.env.MONGOLAB_URI ||
                 process.env.MONGOHQ_URL ||
                 "localhost/pettracker";
 
-mongoose.connect(urlString);
+mongoose.connect(urlString, function(err, response) {
+    if(err) {
+        console.log('ERROR: failed to connect to ' + urlString + ': ' + err);
+    } else {
+        console.log('SUCCESS: connected to: ' + urlString);
+    }
+});
 
 var app = express();
 
