@@ -1,0 +1,24 @@
+{
+  "name": "pettrackerbe",
+  "version": "1.0.0",
+  "description": "Defines the API for PetTracker",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hargueta/PetTrackerBE.git"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "pettracker"
+  ],
+  "author": "Hugo Argueta, Miriam Flores, Laura Chavez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hargueta/PetTrackerBE/issues"
+  },
+  "homepage": "https://github.com/hargueta/PetTrackerBE#readme"
+}
