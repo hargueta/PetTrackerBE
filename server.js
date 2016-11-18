@@ -4,8 +4,6 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
 var urlString = process.env.PROD_MONGODB ||
-                process.env.MONGOLAB_URI ||
-                process.env.MONGOHQ_URL ||
                 "localhost/pettracker";
 
 mongoose.connect(urlString, function(err, response) {
