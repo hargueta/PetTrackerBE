@@ -1,12 +1,12 @@
 var express = require('express');
+var app = express();
 var bodyParser = require('body-parser');
+var taskRoutes = require('./controllers/task_controller');
 
 var mongoose = require('mongoose');
 
-var taskControllers = require('./controllers/task_controller');
-
 var urlString = process.env.PROD_MONGODB ||
-                "localhost/pettracker";
+    "mongodb://localhost/pettracker";
 
 mongoose.connect(urlString, function(err, response) {
     if(err) {
@@ -16,20 +16,19 @@ mongoose.connect(urlString, function(err, response) {
     }
 });
 
-var app = express();
-
+// express app will use body-parser to get data from POST
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 // Set port
 var port = process.env.PORT || 8080;
 
-app.use('/', function(request, response) {
-    response.json({message: 'Hello, World!'});
+// Define a prefix for all routes
+// Can define something unique like MyRestAPI
+app.use('/', function (request, response) {
+    response.json({message: 'This is a message.'});
 });
-
-app.use('/task', taskControllers);
+app.use('/task', taskRoutes);
 
 app.listen(port);
-
-console.log('Listening on port ' + port);
+console.log('RESTAPI listening on port: ' + port);
