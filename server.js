@@ -3,6 +3,8 @@ var bodyParser = require('body-parser');
 
 var mongoose = require('mongoose');
 
+var taskControllers = require('./controllers/task_controller');
+
 var urlString = process.env.PROD_MONGODB ||
                 "localhost/pettracker";
 
@@ -24,7 +26,9 @@ var port = process.env.PORT || 8080;
 
 app.use('/', function(request, response) {
     response.json({message: 'Hello, World!'});
-})
+});
+
+app.use('/task', taskControllers);
 
 app.listen(port);
 
