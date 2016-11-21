@@ -1,7 +1,9 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var routes = require('./controllers/taskRoutes');
+var taskRoutes = require('./controllers/taskRoutes');
+var petRoutes = require('./controllers/petRoutes');
+var userRoutes = require('./controllers/userRoutes');
 
 var mongoose = require('mongoose');
 
@@ -25,7 +27,9 @@ var port = process.env.PORT || 8080;
 
 // Define a prefix for all routes
 // Can define something unique like MyRestAPI
-app.use('/task', routes);
+app.use('/task', taskRoutes);
+app.use('/pet', petRoutes);
+app.use('/user', userRoutes);
 
 app.listen(port);
 console.log('RESTAPI listening on port: ' + port);
