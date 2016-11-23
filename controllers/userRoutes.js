@@ -16,7 +16,7 @@ router.route('/users').get(function(request, response) {
 });
 
 // Create a user (using POST at http://localhost:8080/user/create)
-router.route('/create').post(function(request, response) {
+router.route('/register').post(function(request, response) {
     var user = new User();
 
     // Set text and user values from the request
@@ -26,9 +26,10 @@ router.route('/create').post(function(request, response) {
     // Save user and check for errors
     user.save(function(err) {
         if(err) {
-            response.send(err);
+            response.json({result: 'false'});
+        } else {
+            response.json({result: 'true'});
         }
-        response.json({message: 'User created successfully!'});
     });
     console.log("User ID: " + user._id);
 });
