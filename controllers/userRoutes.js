@@ -40,14 +40,17 @@ router.route('/login').post(function(request, response) {
     var pass = request.body.password;
 
     User.find({username: uname, password: pass}, function(err, user) {
+        console.log(err);
         if(err) {
             response.send(err);
         }
 
-        if(user) {
-            response.json({result: "true"});
-        } else {
+        console.log(user.length);
+
+        if(user.length == 0) {
             response.json({result: "false"});
+        } else {
+            response.json({result: "true"});
         }
 
     });
