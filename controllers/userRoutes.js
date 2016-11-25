@@ -20,18 +20,55 @@ router.route('/register').post(function(request, response) {
     var user = new User();
 
     // Set text and user values from the request
+    user.email = request.body.email;
     user.username = request.body.username;
     user.password = request.body.password;
 
-    // Save user and check for errors
-    user.save(function(err) {
-        if(err) {
-            response.json({result: 'false'});
+    function checkValidUsernameAndPassword(sendResult) {
+        User.find({ $or: [ { email: user.email }, { username: user.username } ] }, function(err, retUser) {
+            var emailValid = true;
+            var usernameValid = true;
+
+            if(err) {
+                response.send(err);
+            }
+
+            if(retUser.length == 0) {
+                emailValid = true;
+                usernameValid = true;
+            } else {
+                for(var i = 0; i < retUser.length; i++) {
+                    if(retUser[i].username == user.username) {
+                        usernameValid = false;
+                    }
+
+                    if(retUser[i].email == user.email) {
+                        emailValid = false;
+                    }
+                }
+            }
+
+            sendResult(emailValid, usernameValid);
+        });
+    }
+
+    checkValidUsernameAndPassword(function(validEmail, validUsername) {
+        if(validEmail && validUsername) {
+            // Save user and check for errors
+            user.save(function(err) {
+                console.log('User was saved.');
+
+                if(err) {
+                    response.send(err);
+                }
+
+                response.json({email: validEmail.toString(), username: validUsername.toString(), userId: user._id});
+            });
         } else {
-            response.json({result: 'true'});
+            console.log('User was not saved.');
+            response.json({email: validEmail.toString(), username: validUsername.toString()});
         }
     });
-    console.log("User ID: " + user._id);
 });
 
 // Check if a user entered valid login credentials (using POST at http://localhost:8080/user/login)
