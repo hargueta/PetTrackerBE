@@ -87,7 +87,7 @@ router.route('/login').post(function(request, response) {
         if(user.length == 0) {
             response.json({result: "false"});
         } else {
-            response.json({result: "true"});
+            response.json({result: "true", user_id: user._id, username: uname});
         }
 
     });
