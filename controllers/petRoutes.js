@@ -47,8 +47,14 @@ router.route('/create').post(function(request, response) {
     console.log("Pet ID: " + pet._id);
 });
 
-router.route('/getTasks').get(function(request, response) {
+router.route('/getPetsForUser').post(function(request, response) {
+    Pet.find({userId: request.body.user_id}, function(err, pets) {
+        if(err) {
+            response.send(err);
+        }
 
-})
+        response.json(pets);
+    });
+});
 
 module.exports = router;

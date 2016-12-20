@@ -59,6 +59,16 @@ router.route('/create').post(function(request, response) {
     console.log("Task ID: " + task._id);
 });
 
+router.route('/getTasksForPet').post(function(request, response) {
+    Task.find({petId: request.body.pet_id}, function(err, tasks) {
+        if(err) {
+            response.send(err);
+        }
+
+        response.json(tasks);
+    });
+});
+
 // GET task with id (using a GET at http://localhost:8080/task/tasks/:task_id)
 router.route('/tasks/:task_id').get(function(request, response) {
     Task.findById(request.params.task_id, function(err, task) {
