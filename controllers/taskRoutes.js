@@ -32,8 +32,10 @@ router.route('/create').post(function(request, response) {
     var task = new Task();
 
     // Set text and user values from the request
-    task.petName = request.body.petName;
+    task.title = request.body.title;
     task.description = request.body.description;
+    task.isComplete = false;
+    task.reminderTime = request.body.reminderTime;
 
     // Save task and check for errors
     task.save(function(err) {
