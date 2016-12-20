@@ -32,10 +32,11 @@ router.route('/create').post(function(request, response) {
     var task = new Task();
 
     // Set text and user values from the request
-    task.title = request.body.title;
+    task.taskTitle = request.body.taskTitle;
     task.description = request.body.description;
     task.isComplete = false;
     task.reminderTime = request.body.reminderTime;
+    task.petId = request.body.pet_id;
 
     // Save task and check for errors
     task.save(function(err) {
@@ -46,14 +47,14 @@ router.route('/create').post(function(request, response) {
         response.json({message: 'Task created successfully!'});
     });
 
-    Pet.findByIdAndUpdate(
-      request.body.pet_id,
-      { $push: {"tasks": task._id } },
-      {safe: true, upsert: true},
-        function(err, model) {
-          console.log(err);
-        }
-    );
+    // Pet.findByIdAndUpdate(
+    //   request.body.pet_id,
+    //   { $push: {"tasks": task._id } },
+    //   {safe: true, upsert: true},
+    //     function(err, model) {
+    //       console.log(err);
+    //     }
+    // );
 
     console.log("Task ID: " + task._id);
 });

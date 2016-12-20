@@ -5,8 +5,7 @@ var Schema = mongoose.Schema;
 var userSchema = new Schema({
   email: String,
   username: String,
-  password: String,
-  pets: [String]
+  password: String
 });
 
 module.exports = mongoose.model('User', userSchema);

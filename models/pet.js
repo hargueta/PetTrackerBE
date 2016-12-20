@@ -6,7 +6,7 @@ var petSchema = new Schema({
   petName: String,
   dob: String,
   type: String,
-  tasks: [String]
+  userId: String
 });
 
 module.exports = mongoose.model('Pet', petSchema);

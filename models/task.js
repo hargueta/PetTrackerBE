@@ -5,7 +5,8 @@ var taskSchema = new Schema({
     taskTitle: String,
     description: String,
     isComplete: Boolean,
-    reminderTime: {type: Date, default: Date.now}
+    reminderTime: {type: Date, default: Date.now},
+    petId: String
 });
 
 module.exports = mongoose.model('Task', taskSchema);

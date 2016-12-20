@@ -26,6 +26,7 @@ router.route('/create').post(function(request, response) {
     pet.petName = request.body.petName;
     pet.dob = request.body.dob;
     pet.type = request.body.type;
+    pet.userId = request.body.user_id;
 
     // Save pet and check for errors
     pet.save(function(err) {
@@ -35,15 +36,19 @@ router.route('/create').post(function(request, response) {
         response.json({message: 'Pet created successfully!'});
     });
 
-    User.findByIdAndUpdate(
-      request.body.user_id,
-      { $push: {"pets": pet._id } },
-      {safe: true, upsert: true},
-        function(err, model) {
-          console.log(err);
-        }
-    );
+    // User.findByIdAndUpdate(
+    //   request.body.user_id,
+    //   { $push: {"pets": pet._id } },
+    //   {safe: true, upsert: true},
+    //     function(err, model) {
+    //       console.log(err);
+    //     }
+    // );
     console.log("Pet ID: " + pet._id);
 });
+
+router.route('/getTasks').get(function(request, response) {
+
+})
 
 module.exports = router;
