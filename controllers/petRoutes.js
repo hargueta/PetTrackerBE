@@ -57,4 +57,59 @@ router.route('/getPetsForUser').post(function(request, response) {
     });
 });
 
+// GET pet with id (using a GET at http://localhost:8080/pet/getPetWithId/:pet_id)
+router.route('/getPetById/:pet_id').get(function(request, response) {
+    Pet.findById(request.params.pet_id, function(err, pet) {
+        if(err) {
+            response.send(err);
+        }
+
+        response.json(pet);
+    });
+});
+
+// Update pet with id (using a PUT at http://localhost:8080/pet/update/:pet_id)
+router.route('/update/:pet_id').put(function(request, response) {
+    Pet.findById(request.params.pet_id, function(err, pet) {
+        if (err) {
+            response.send(err);
+        }
+
+        var newPetName = request.body.petName;
+        var newDOB = request.body.dob;
+        var newType = request.body.type;
+
+        if(newPetName) {
+            pet.petName = newPetName;
+        }
+
+        if(newDOB) {
+            pet.dob = newDOB;
+        }
+
+        if(newType) {
+            pet.type = newType;
+        }
+
+        pet.save(function(err) {
+            if (err) {
+                response.send(err);
+            }
+            response.json({ message: 'Pet successfully updated!' });
+        });
+
+    });
+});
+
+// Delete pet with id (using a DELETE at http://localhost:8080/pet/delete/:pet_id)
+router.route('/delete/:pet_id').delete(function(request, response) {
+    Pet.remove({
+        _id: request.params.pet_id
+    }, function(err, pet) {
+        if (err)
+            response.send(err);
+        response.json({ message: 'Successfully deleted pet!' });
+    });
+});
+
 module.exports = router;

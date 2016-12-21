@@ -69,8 +69,8 @@ router.route('/getTasksForPet').post(function(request, response) {
     });
 });
 
-// GET task with id (using a GET at http://localhost:8080/task/tasks/:task_id)
-router.route('/tasks/:task_id').get(function(request, response) {
+// GET task with id (using a GET at http://localhost:8080/task/getTaskWithId/:task_id)
+router.route('/getTaskById/:task_id').get(function(request, response) {
     Task.findById(request.params.task_id, function(err, task) {
         if(err) {
             response.send(err);
@@ -80,14 +80,33 @@ router.route('/tasks/:task_id').get(function(request, response) {
     });
 });
 
-// Update task with id (using a PUT at http://localhost:8080/task/tasks/:task_id)
-router.route('/tasks/:task_id').put(function(request, response) {
+// Update task with id (using a PUT at http://localhost:8080/task/update/:task_id)
+router.route('/update/:task_id').put(function(request, response) {
     Task.findById(request.params.task_id, function(err, task) {
         if (err) {
             response.send(err);
         }
-        // Update the task text
-        task.description = request.body.description;
+        var newTaskTitle = request.body.taskTitle;
+        var newDescription = request.body.description;
+        var newIsComplete = request.body.isComplete;
+        var newReminderTime = request.body.reminderTime;
+
+        if(newTaskTitle) {
+            task.taskTitle = newTaskTitle;
+        }
+
+        if(newDescription) {
+            task.description = newDescription;
+        }
+
+        if(newIsComplete) {
+            task.isComplete = newIsComplete;
+        }
+
+        if(newReminderTime) {
+            task.reminderTime = newReminderTime;
+        }
+
         task.save(function(err) {
             if (err) {
                 response.send(err);
@@ -98,8 +117,8 @@ router.route('/tasks/:task_id').put(function(request, response) {
     });
 });
 
-// Delete task with id (using a DELETE at http://localhost:8080/task/tasks/:task_id)
-router.route('/tasks/:task_id').delete(function(request, response) {
+// Delete task with id (using a DELETE at http://localhost:8080/task/delete/:task_id)
+router.route('/delete/:task_id').delete(function(request, response) {
     Task.remove({
         _id: request.params.task_id
     }, function(err, task) {
