@@ -33,7 +33,7 @@ router.route('/create').post(function(request, response) {
         if(err) {
             response.send(err);
         }
-        response.json({message: 'Pet created successfully!'});
+        response.json(pet);
     });
 
     // User.findByIdAndUpdate(
