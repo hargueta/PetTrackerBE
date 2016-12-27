@@ -102,9 +102,9 @@ router.route('/update/:pet_id').put(function(request, response) {
 });
 
 // Delete pet with id (using a DELETE at http://localhost:8080/pet/delete/:pet_id)
-router.route('/delete/:pet_id').delete(function(request, response) {
+router.route('/delete').delete(function(request, response) {
     Pet.remove({
-        _id: request.params.pet_id
+        _id: request.body.pet_id
     }, function(err, pet) {
         if (err)
             response.send(err);
