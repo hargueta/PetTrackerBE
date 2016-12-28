@@ -118,9 +118,9 @@ router.route('/update/:task_id').put(function(request, response) {
 });
 
 // Delete task with id (using a DELETE at http://localhost:8080/task/delete/:task_id)
-router.route('/delete/:task_id').delete(function(request, response) {
+router.route('/delete').delete(function(request, response) {
     Task.remove({
-        _id: request.params.task_id
+        _id: request.body.task_id
     }, function(err, task) {
         if (err)
             response.send(err);
